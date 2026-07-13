@@ -1,0 +1,47 @@
+name: UCab CI-CD Verification Pipeline
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build-and-verify:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-size: 20
+
+    # 1. Verify Backend
+    - name: Install Server Dependencies
+      run: |
+        cd server
+        npm install
+
+    - name: Lint Server Code
+      run: |
+        cd server
+        npm run lint
+
+    # 2. Verify Frontend
+    - name: Install Client Dependencies
+      run: |
+        cd client
+        npm install
+
+    - name: Lint Client Code
+      run: |
+        cd client
+        npm run lint
+
+    - name: Build Client Bundle
+      run: |
+        cd client
+        npm run build

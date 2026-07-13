@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: ucab_mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile.server
+    container_name: ucab_server
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
+      - MONGO_URI=mongodb://mongodb:27017/ucab
+      - JWT_SECRET=production_secret_key_123
+      - NODE_ENV=production
+    depends_on:
+      - mongodb
+
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile.client
+    container_name: ucab_client
+    ports:
+      - "80:80"
+    depends_on:
+      - server
+
+volumes:
+  mongodb_data:

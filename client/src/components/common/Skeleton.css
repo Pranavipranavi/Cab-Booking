@@ -1,0 +1,39 @@
+/* Skeleton loading styling and pulsing keyframes */
+.skeleton-base {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-pulse-loading 1.5s infinite ease-in-out;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  width: 100%;
+}
+
+.skeleton-text {
+  height: 1rem;
+}
+
+.skeleton-title {
+  height: 1.75rem;
+  margin-bottom: 1rem;
+}
+
+.skeleton-avatar {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+}
+
+.skeleton-rect {
+  height: 150px;
+  border-radius: 8px;
+}
+
+/* Pulse animation */
+@keyframes skeleton-pulse-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
